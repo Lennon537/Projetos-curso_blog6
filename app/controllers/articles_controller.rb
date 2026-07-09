@@ -35,6 +35,14 @@ class ArticlesController < ApplicationController
     end
   end
 
+  # Ação para excluir um artigo
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+
+    redirect_to articles_path, notice: "Artigo excluído com sucesso."
+  end
+
   private
 
   def article_params
