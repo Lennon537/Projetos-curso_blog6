@@ -4,10 +4,44 @@
 
 <ul>
   <li><%= link_to 'Edit', edit_article_path(@article) %></li>
-  <li><%= link_to 'Delete', article_path(@article),
-          data: {
-            turbo_method: :delete,
-            turbo_confirm: 'Tem certeza que deseja excluir este artigo?'
-          } %></li>
+
+  <li>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+      Delete
+    </button>
+  </li>
+
   <li><%= link_to 'Back', root_path %></li>
 </ul>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">
+          Confirmar Exclusão
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        Tem certeza que deseja excluir o artigo
+        <strong><%= @article.title %></strong>?
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+
+        <%= link_to "Excluir",
+            article_path(@article),
+            data: { turbo_method: :delete },
+            class: "btn btn-danger" %>
+      </div>
+
+    </div>
+  </div>
+</div>
